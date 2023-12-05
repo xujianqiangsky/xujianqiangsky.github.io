@@ -1,5 +1,7 @@
 import { defineConfig } from 'vitepress'
 import supPlugin from 'markdown-it-sup'
+import navConfig from './configs/nav-config'
+import postgresConfig from './configs/postgres-config'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -17,37 +19,13 @@ export default defineConfig({
       src: '/logo.svg',
       alt: 'JQM'
     },
-    nav: [
-      { text: '首页', link: '/' }
-    ],
+    nav: navConfig,
     sidebar: [
-      {
-        text: 'PostgreSQL',
-        collapsed: true,
-        items: [
-          {
-            text: '前言',
-            collapsed: true,
-            items: [
-              { text: '1. 什么是 PostgreSQL', link: '/postgres/preface/1-what-is-postgresql' },
-              { text: '2. PostgreSQL 简史', link: '/postgres/preface/2-postgresql-history' },
-              { text: '3. 约定', link: '/postgres/preface/3-conventions' }
-            ]
-          },
-          {
-            text: 'I. 教程',
-            collapsed: true,
-            items: [
-              { text: '1. 快速开始', link: '/postgres/tutorial/1-getting-started' },
-              { text: '2. SQL 语言', link: '/postgres/tutorial/2-sql-language' },
-              { text: '3. 高级特性', link: '/postgres/tutorial/3-advanced-features' },
-            ]
-          }
-        ]
-      }
+      postgresConfig
     ],
     outline: {
-      label: '目录'
+      label: '本页目录',
+      level: 'deep'
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/xujianqiangsky' }
@@ -83,7 +61,7 @@ export default defineConfig({
             footer: {
               selectText: '选择',
               navigateText: '切换',
-              closeText: '退出'
+              closeText: '关闭'
             }
           }
         }

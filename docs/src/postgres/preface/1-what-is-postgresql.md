@@ -1,4 +1,4 @@
-# 什么是 PostgresSQL?
+# 1. 什么是 PostgresSQL?
 [PostgreSQL](https://www.postgresql.org/docs/current/index.html) 是一个基于 POSTGRES 4.2 版的对象关系数据库管理系统（ORDBMS），由加州大学伯克利分校计算机科学系开发。POSTGRES 开创了许多概念，这些概念在很久以后才在一些商业数据库系统中出现。
 
 PostgreSQL 是这个原始 Berkeley 代码的开源后代。它支持大部分 SQL 标准，并提供许多现代功能:

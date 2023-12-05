@@ -1,6 +1,6 @@
-# SQL 语言
-## 介绍
-本章概述了如何使用 SQL 执行简单的操作。本教程仅用于向您介绍，绝不是有关 SQL 的完整教程。关于 SQL 的书籍很多，包括 [melt93](https://www.postgresql.org/docs/16/biblio.html#MELT93) 和 [date97](https://www.postgresql.org/docs/16/biblio.html#DATE97)。您应该知道，某些 PostgreSQL 语言功能是对标准的扩展。
+# 2. SQL 语言
+## 2.1. 介绍
+本章概述了如何使用 SQL 执行简单的操作。本教程仅用于向您介绍，绝不是有关 SQL 的完整教程。关于 SQL 的书籍很多，包括 [[melt93]](https://www.postgresql.org/docs/16/biblio.html#MELT93) 和 [[date97]](https://www.postgresql.org/docs/16/biblio.html#DATE97)。您应该知道，某些 PostgreSQL 语言功能是对标准的扩展。
 
 在下面的示例中，我们假设您已经创建了一个名为 `mydb` 的数据库，如上一章所述，并且已经能够启动 psql。
 
@@ -19,14 +19,14 @@ mydb=> \i basics.sql
 ```
 该 `\i` 命令从指定文件中读入命令。`psql` 的 `-s` 选项将您置于单步模式，该模式在将每个语句发送到服务器之前暂停。本节中使用的命令位于文件 `basics.sql` 中。
 
-## 概念
+## 2.2. 概念
 PostgreSQL 是一个关系型数据库管理系统 （RDBMS）。这意味着它是一个用于管理存储在关系中的数据的系统。关系本质上是表的数学术语。在表中存储数据的概念在今天是如此普遍，以至于它本身似乎是显而易见的，但还有许多其他组织数据库的方法。类 Unix 操作系统上的文件和目录构成了分层数据库的一个例子。更现代的发展是面向对象的数据库。
 
 每个表都是行的命名集合。给定表的每一行都有相同的命名列集，并且每列都具有特定的数据类型。虽然列在每行中都有固定的顺序，但重要的是要记住，SQL 不能以任何方式保证表中行的顺序（尽管可以显式排序以显示它们）。
 
 表被分组到数据库中，由单个 PostgreSQL 服务器实例管理的数据库集合构成一个数据库集群。
 
-## 创建新表
+## 2.3. 创建新表
 您可以通过指定表名以及所有列名及其类型来创建新表：
 ```sql
 CREATE TABLE weather (
@@ -58,7 +58,7 @@ CREATE TABLE cities (
 ```sql
 DROP TABLE tablename;
 ```
-## 用行填充表
+## 2.4. 用行填充表
 该 `INSERT` 语句用于用行填充表：
 ```sql
 INSERT INTO weather VALUES ('San Francisco', 46, 50, 0.25, '1994-11-27');
@@ -89,7 +89,7 @@ COPY weather FROM '/home/user/weather.txt';
 ```
 其中，源文件的文件名必须在运行后端进程的计算机上可用，而不是在客户端上可用，因为后端进程直接读取文件。您可以在 [COPY](https://www.postgresql.org/docs/16/sql-copy.html) 中阅读有关该 `COPY` 命令的更多信息。
 
-## 查询表
+## 2.5. 查询表
 若要从表中检索数据，需要查询该表。SQL `SELECT` 语句用于执行此操作。该语句分为选择列表（列出要返回的列的部分）、表列表（列出要从中检索数据的表的部分）和可选限定条件（指定任何限制的部分）。例如，要检索表 weather 的所有行，请键入：
 ```sql
 SELECT * FROM weather;
@@ -176,7 +176,7 @@ SELECT DISTINCT city
 **^[3]^** 在某些数据库系统中，包括旧版本的 PostgreSQL，`DISTINCT` 具备自动对行进行排序的实现 `ORDER BY` 是不必要的。但这不是 SQL 标准所要求的，当前的 PostgreSQL 不保证会导致 `DISTINCT` 行被排序。
 :::
 
-## 表之间的连接
+## 2.6. 表之间的连接
 到目前为止，我们的查询一次只访问一个表。查询可以一次访问多个表，也可以以同时处理表的多行的方式访问同一表。一次访问多个表（或同一表的多个实例）的查询称为连接查询。它们将一个表中的行与另一个表中的行合并，并使用一个表达式指定要配对的行。例如，要返回所有天气记录以及关联城市的位置，数据库需要将 `cities` 表中每一行的 `city` 列与 `weather` 表中每一行的 `name` 列进行比较，并选择这些值匹配的行对。**^[4]^** 这将通过以下查询完成：
 ```sql
 SELECT * FROM weather JOIN cities ON city = name;
@@ -254,7 +254,7 @@ SELECT *
 **^[4]^** 这只是一个概念模型。连接的执行方式通常比实际比较每对可能的行更有效，但这对用户是不可见的。
 :::
 
-## 聚合函数
+## 2.7. 聚合函数
 与大多数其他关系数据库产品一样，PostgreSQL 支持聚合函数。聚合函数从多个输入行计算单个结果。例如，有一些聚合可以计算一组行的 `count`、`sum`、`avg`（平均值）、 `max`（最大值）和 `min`（最小值）。
 
 例如，我们可以在任何地方找到最高的低温 reading：
@@ -325,7 +325,7 @@ SELECT city, count(*), max(temp_lo)
 ```
 [(1)](https://www.postgresql.org/docs/16/tutorial-agg.html#co.tutorial-agg-like) `LIKE` 运算符执行模式匹配，并在[第 9.7 节](https://www.postgresql.org/docs/16/functions-matching.html)中进行了说明。
 
-理解聚合与 SQL 的 WHERE 和 HAVING 子句之间的交互非常重要。WHERE 和 HAVING 之间的根本区别在于： WHERE 在计算分组和聚合之前选择输入行（因此，它控制哪些行进入聚合计算），而 HAVING 在计算分组和聚合之后选择分组行。因此，WHERE 子句不得包含聚合函数;尝试使用聚合来确定哪些行将作为聚合的输入是没有意义的。另一方面，HAVING 子句始终包含聚合函数。（严格来说，你可以写一个 `HAVING` 不使用聚合的子句，但它很少有用。在 `WHERE` 阶段可以更有效地使用相同的条件。）
+理解聚合与 SQL 的 WHERE 和 HAVING 子句之间的交互非常重要。WHERE 和 HAVING 之间的根本区别在于： WHERE 在计算分组和聚合之前选择输入行（因此，它控制哪些行进入聚合计算），而 HAVING 在计算分组和聚合之后选择分组行。因此，WHERE 子句不得包含聚合函数；尝试使用聚合来确定哪些行将作为聚合的输入是没有意义的。另一方面，HAVING 子句始终包含聚合函数。（严格来说，你可以写一个 `HAVING` 不使用聚合的子句，但它很少有用。在 `WHERE` 阶段可以更有效地使用相同的条件。）
 
 在前面的示例中，我们可以在 `WHERE` 中应用城市名称限制，因为它不需要聚合。这比将限制添加到 `HAVING` 更有效，因为我们避免了对所有未通过 `WHERE` 检查的行进行分组和聚合计算。
 
@@ -342,9 +342,9 @@ SELECT city, count(*) FILTER (WHERE temp_lo < 45), max(temp_lo)
  San Francisco |     1 |  46
 (2 rows)
 ```
-`FILTER` 与 `WHERE` 非常相似 ，只是它仅从它所附加到的特定聚合函数的输入中删除行。在这里， `count` 聚合仅计算 `temp_lo` 低于 45 的行;但 `max` 聚合仍应用于所有行，因此它仍然会找到 46 的读数。
+`FILTER` 与 `WHERE` 非常相似 ，只是它仅从它所附加到的特定聚合函数的输入中删除行。在这里， `count` 聚合仅计算 `temp_lo` 低于 45 的行；但 `max` 聚合仍应用于所有行，因此它仍然会找到 46 的读数。
 
-## 更新
+## 2.8. 更新
 您可以使用该 `UPDATE` 命令更新现有行。假设您发现温度读数在 11 月 28 日之后都下降了 2 度。您可以按如下方式更正数据：
 ```sql
 UPDATE weather
@@ -363,7 +363,7 @@ SELECT * FROM weather;
 (3 rows)
 ```
 
-## 删除
+## 2.9. 删除
 可以使用该 `DELETE` 命令从表中删除行。假设您不再对 Hayward 的天气感兴趣。然后，您可以执行以下操作从表中删除这些行：
 ```sql
 DELETE FROM weather WHERE city = 'Hayward';
