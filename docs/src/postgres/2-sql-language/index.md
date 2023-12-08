@@ -3,4 +3,4 @@
 
 本部分中的信息经过安排，以便新手用户可以从头到尾遵循它，以全面了解主题，而无需参考太多次。这些章节旨在独立，以便高级用户可以根据自己的选择单独阅读章节。本部分中的信息以叙述方式在主题单元中呈现。寻找特定命令完整描述的读者应参阅 [第 VI 部分](https://www.postgresql.org/docs/16/reference.html)。
 
-本部分的读者应该知道如何连接到 PostgreSQL 数据库并发出 SQL 命令。我们鼓励不熟悉这些问题的读者先阅读 [第 I 部分](/postgres/1-tutorial/index)。SQL 命令通常使用 PostgreSQL 交互式终端 psql 输入，但也可以使用具有类似功能的其他程序。
+本部分的读者应该知道如何连接到 PostgreSQL 数据库并发出 SQL 命令。我们鼓励不熟悉这些问题的读者先阅读 [第 I 部分](/postgres/1-tutorial/)。SQL 命令通常使用 PostgreSQL 交互式终端 psql 输入，但也可以使用具有类似功能的其他程序。

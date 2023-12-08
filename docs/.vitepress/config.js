@@ -1,7 +1,8 @@
 import { defineConfig } from 'vitepress'
 import supPlugin from 'markdown-it-sup'
 import navConfig from './configs/nav-config'
-import postgresConfig from './configs/postgres-config'
+import postgresItems from './configs/postgres-config'
+import mysqlItems from './configs/mysql-config'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -20,9 +21,10 @@ export default defineConfig({
       alt: 'JQM'
     },
     nav: navConfig,
-    sidebar: [
-      postgresConfig
-    ],
+    sidebar: {
+      '/postgres/': {base: '/postgres/', items: postgresItems },
+      '/mysql/': { base: '/mysql/', items: mysqlItems }
+    },
     outline: {
       label: '本页目录',
       level: 'deep'

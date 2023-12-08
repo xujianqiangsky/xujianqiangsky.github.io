@@ -22,11 +22,18 @@ hero:
     - theme: brand
       text: PostgreSQL 文档
       link: /postgres/preface/1-what-is-postgresql
+    - theme: brand
+      text: MySQL 文档
+      link: /mysql/1-overview
 
 features:
   - icon:
       src: /postgres.svg
     title: PostgreSQL
     details: PostgreSQL 文档
+  - icon:
+      src: /mysql.svg
+    title: MySQL
+    details: MySQL 文档
 ---
 
